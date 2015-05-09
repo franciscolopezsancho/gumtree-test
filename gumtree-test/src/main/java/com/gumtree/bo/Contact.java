@@ -2,11 +2,13 @@ package com.gumtree.bo;
 
 import org.joda.time.DateTime;
 
+import java.util.Comparator;
+
 /**
  * User: fran
  * Date: 09/05/2015
  */
-public class Contact {
+public class Contact implements Comparable<Contact> {
 
     private String name;
     private Gender gender;
@@ -67,6 +69,59 @@ public class Contact {
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
         return result;
     }
+
+    public int compareTo(Contact compareContact) {
+
+        long compareQuantity = ((Contact) compareContact).getBirthDate().getMillis();
+
+        //ascending order
+
+        return safeLongToInt(this.getBirthDate().getMillis() - compareQuantity);
+
+        //descending order
+        //return compareQuantity - this.quantity;
+
+    }
+
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
+    }
+
+    public static Comparator<Contact> COMPARE_DATES_ASC
+            = new Comparator<Contact>() {
+
+        public int compare(Contact c1, Contact c2) {
+
+            DateTime birthDate1 = c1.getBirthDate();
+            DateTime birthDate2 = c2.getBirthDate();
+
+            //ascending order
+            return birthDate1.compareTo(birthDate2);
+
+            //descending order
+            //return fruitName2.compareTo(fruitName1);
+        }
+
+    };
+
+    public static Comparator<Contact> COMPARE_DATES_DESC
+            = new Comparator<Contact>() {
+
+        public int compare(Contact c1, Contact c2) {
+
+            DateTime birthDate1 = c1.getBirthDate();
+            DateTime birthDate2 = c2.getBirthDate();
+
+            //descending order
+            return birthDate2.compareTo(birthDate1);
+        }
+
+    };
+
 }
 
 
