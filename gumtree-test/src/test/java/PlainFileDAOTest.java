@@ -28,7 +28,6 @@ public class PlainFileDAOTest {
 //        Wes Jackson, Male, 14/08/74
         DateTimeFormatter formatter = DateTimeFormat.forPattern(Contact.DATE_FORMAT);
         assertTrue(abD.getByGender("").contains(new Contact("Bill McKnight", Gender.MALE, formatter.parseDateTime("16/03/77"))))  ;
-
     }
 
     @Test

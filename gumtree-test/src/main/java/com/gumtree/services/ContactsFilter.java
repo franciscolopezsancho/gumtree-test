@@ -2,6 +2,7 @@ package com.gumtree.services;
 
 import com.gumtree.bo.Contact;
 import com.gumtree.bo.Gender;
+import org.joda.time.Period;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,9 @@ import java.util.List;
 public class ContactsFilter {
 
 
-    public List<Contact> filterByGender(Gender gender,List<Contact> contacts){
+
+
+    public static List<Contact> filterByGender(Gender gender,List<Contact> contacts){
         List<Contact> afterFilter = new ArrayList<>();
         for(Contact contact : contacts){
             if(contact.getGender().equals(gender)){
@@ -23,7 +26,7 @@ public class ContactsFilter {
         return afterFilter;
     }
 
-    public void sortByBirthDate(boolean asc,List<Contact> contacts) {
+    public static void sortByBirthDate(boolean asc,List<Contact> contacts) {
         if (asc) {
             contacts.sort(Contact.COMPARE_DATES_ASC);
         } else {
@@ -31,7 +34,7 @@ public class ContactsFilter {
         }
     }
 
-    public List<Contact> filterByName(String name,List<Contact> contacts){
+    public static List<Contact> filterByName(String name,List<Contact> contacts){
         List<Contact> afterFilter = new ArrayList<>();
         for(Contact contact : contacts){
             if(contact.getName().contains(name)){
@@ -40,5 +43,12 @@ public class ContactsFilter {
         }
         return afterFilter;
     }
+
+    public static Period findBirthDateDiff(Contact a,Contact b){
+        return new Period(a.getBirthDate(),b.getBirthDate());
+    }
+
+
+
 
 }
