@@ -14,6 +14,5 @@ public interface AddressBookDAO {
 
     public List<Contact> getByGender(String gender) throws AddressBookAccessException ;
 
-    public StringBuilder select() throws AddressBookAccessException ;
 
 }
