@@ -2,6 +2,7 @@ package com.gumtree.bridge;
 
 import com.gumtree.bo.Contact;
 import com.gumtree.bo.Gender;
+import com.gumtree.exceptions.GumtreeParseException;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -15,9 +16,15 @@ public class MapperNGB implements IMapper {
     public static final String DATE_FORMAT = "dd/MM/yy" ;
 
 
-    public Contact map(String[] fields){
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
-        return new Contact(fields[0].trim(),toGenderEnum(fields[1].trim()),formatter.parseDateTime(fields[2].trim()));
+    public Contact map(String[] fields) throws GumtreeParseException {
+        Contact parsedContact;
+        try {
+            DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
+            parsedContact = new Contact(fields[0].trim(), toGenderEnum(fields[1].trim()), formatter.parseDateTime(fields[2].trim()));
+        }catch(Exception e){
+            throw new GumtreeParseException(e);
+        }
+        return parsedContact;
     }
 
 

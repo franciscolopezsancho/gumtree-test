@@ -1,6 +1,7 @@
 package com.gumtree.bridge;
 
 import com.gumtree.bo.Contact;
+import com.gumtree.exceptions.GumtreeParseException;
 
 /**
  * User: fran
@@ -8,5 +9,5 @@ import com.gumtree.bo.Contact;
  */
 public interface IMapper {
 
-   public Contact map(String[] fields);
+   public Contact map(String[] fields) throws GumtreeParseException;
 }

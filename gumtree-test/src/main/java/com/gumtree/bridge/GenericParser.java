@@ -1,7 +1,8 @@
 package com.gumtree.bridge;
 
-import com.gumtree.exceptions.AddressBookAccessException;
+import com.gumtree.exceptions.GumtreeAccessFileException;
 import com.gumtree.bo.Contact;
+import com.gumtree.exceptions.GumtreeParseException;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -47,16 +48,17 @@ public abstract class GenericParser {
      * into a List of Contacts
      * @param content
      * @return
-     * @throws AddressBookAccessException
+     * @throws com.gumtree.exceptions.GumtreeAccessFileException
      */
-    public List<Contact> getContacts(StringBuilder content) throws AddressBookAccessException {
+    public List<Contact> getContacts(StringBuilder content) {
         String[] lines = content.toString().split("\n");
         List<Contact> contacts = new ArrayList();
         for(String line : lines){
             try{
                 String[] fields = line.split(splitter);
                 contacts.add(mapper.map(fields));
-            } catch (Exception e){
+            } catch (GumtreeParseException e){
+                //TODO plenty of room to improve exceptions
                 logger.info("line couldn't be formatted..skipping this line. Its content was: "+line);
             }
         }
@@ -67,15 +69,15 @@ public abstract class GenericParser {
      * Get content of file from sPath
      * @param sPath
      * @return
-     * @throws AddressBookAccessException
+     * @throws com.gumtree.exceptions.GumtreeAccessFileException
      */
-    public StringBuilder getContent(String sPath) throws AddressBookAccessException {
+    public StringBuilder getContent(String sPath) throws GumtreeAccessFileException {
         try {
             int start = 0;
             StringBuilder content = new StringBuilder();
             Path path = Paths.get(sPath);
             AsynchronousFileChannel ch = AsynchronousFileChannel.open(path);
-            ByteBuffer buf = ByteBuffer.allocate(10);
+            ByteBuffer buf = ByteBuffer.allocate(100);
             Future result = ch.read(buf, start);
             int length;
             while ((length = (Integer) result.get()) != -1) {
@@ -90,10 +92,8 @@ public abstract class GenericParser {
             }
             ch.close();
             return content;
-
-
         }catch ( IOException | ExecutionException | InterruptedException e){
-            throw new AddressBookAccessException();
+            throw new GumtreeAccessFileException(e);
         }
     }
 

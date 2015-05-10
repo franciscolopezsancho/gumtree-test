@@ -3,7 +3,7 @@ import com.gumtree.bo.Gender;
 import com.gumtree.bridge.DefaultParser;
 import com.gumtree.bridge.GenericParser;
 import com.gumtree.bridge.MapperNGB;
-import com.gumtree.exceptions.AddressBookAccessException;
+import com.gumtree.exceptions.GumtreeAccessFileException;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class DefaultParserTest {
     String path2File = "/Users/fran/Interviews/Gumtree/gumtree-test/src/main/resources/address-book.txt";
 
     @Test
-    public void shouldReturnBeginAndEnd() throws AddressBookAccessException {
+    public void shouldReturnBeginAndEnd() throws GumtreeAccessFileException {
         DefaultParser abD = new DefaultParser()   ;
         //first name  on file
         assertEquals(0,abD.getContent(path2File).indexOf("Bill McKnight"))  ;
@@ -32,7 +32,7 @@ public class DefaultParserTest {
     }
 
     @Test
-    public void shouldReturnContacts() throws AddressBookAccessException {
+    public void shouldReturnContacts() throws GumtreeAccessFileException {
         GenericParser abD = new DefaultParser()   ;
         //first name  on file
         //GIVEN a file

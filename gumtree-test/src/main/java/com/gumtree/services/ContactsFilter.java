@@ -2,7 +2,6 @@ package com.gumtree.services;
 
 import com.gumtree.bo.Contact;
 import com.gumtree.bo.Gender;
-import org.joda.time.Period;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,8 @@ public class ContactsFilter {
         return afterFilter;
     }
 
-    public static Period findBirthDateDiff(Contact a,Contact b){
-        return new Period(a.getBirthDate(),b.getBirthDate());
+    public static long findBirthDateDiff(Contact a,Contact b){
+        return a.getBirthDate().getMillis() - b.getBirthDate().getMillis();
     }
 
 

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 import static org.junit.Assert.assertEquals;
@@ -89,7 +90,7 @@ public class ContactsFilterTest {
 
     @Test
     public void shouldFindBirthDiff(){
-        assertEquals(1,ContactsFilter.findBirthDateDiff(a,b).getDays());
+        assertEquals(-1, TimeUnit.MILLISECONDS.toDays(ContactsFilter.findBirthDateDiff(a,b)));
     }
 
 

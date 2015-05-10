@@ -102,8 +102,6 @@ public class Contact implements Comparable<Contact> {
             //ascending order
             return birthDate1.compareTo(birthDate2);
 
-            //descending order
-            //return fruitName2.compareTo(fruitName1);
         }
 
     };
