@@ -13,9 +13,6 @@ import java.util.List;
  */
 public class ContactsFilter {
 
-
-
-
     public static List<Contact> filterByGender(Gender gender,List<Contact> contacts){
         List<Contact> afterFilter = new ArrayList<>();
         for(Contact contact : contacts){

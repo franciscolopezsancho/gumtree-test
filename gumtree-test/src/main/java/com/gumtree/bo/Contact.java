@@ -14,7 +14,9 @@ public class Contact implements Comparable<Contact> {
     private Gender gender;
     private DateTime birthDate;
 
-    public static final String DATE_FORMAT = "dd/MM/yy" ;
+
+    public Contact(){
+    }
 
     public Contact(String name,Gender gender,DateTime birthDate){
         setBirthDate(birthDate);
@@ -48,6 +50,9 @@ public class Contact implements Comparable<Contact> {
         this.birthDate = birthDate;
     }
 
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,12 +80,7 @@ public class Contact implements Comparable<Contact> {
         long compareQuantity = ((Contact) compareContact).getBirthDate().getMillis();
 
         //ascending order
-
         return safeLongToInt(this.getBirthDate().getMillis() - compareQuantity);
-
-        //descending order
-        //return compareQuantity - this.quantity;
-
     }
 
     public static int safeLongToInt(long l) {
