@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class DefaultParserTest {
 
-    String path2File = "/Users/fran/Interviews/Gumtree/gumtree-test/src/main/resources/address-book.txt";
+    String path2File = "src/main/resources/address-book.txt";
 
     @Test
     public void shouldReturnBeginAndEnd() throws GumtreeAccessFileException {
